@@ -31,11 +31,13 @@ import (
 func main() {
     agent := relintio.NewAgent(relintio.Config{
         LicenseKey:   "YOUR_LICENSE_KEY",
-        ApiUrl:       "https://api.relintio.com/api",
+        Domain:       "example.com",
+        ApiUrl:       "https://relintio.com/api",
         SyncInterval: 60 * time.Second,
     })
     
     agent.StartSync()
+    defer agent.StopSync()
 
     mux := http.NewServeMux()
     mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -62,8 +64,10 @@ import (
 func main() {
     agent := relintio.NewAgent(relintio.Config{
         LicenseKey: "YOUR_LICENSE_KEY",
+        Domain: "example.com",
     })
     agent.StartSync()
+    defer agent.StopSync()
 
     r := gin.Default()
     r.Use(relintio.GinMiddleware(agent))

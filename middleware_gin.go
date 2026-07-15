@@ -3,6 +3,7 @@ package relintio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,7 +28,7 @@ func GinMiddleware(agent *Agent) gin.HandlerFunc {
 		}
 
 		if res.Action == "challenge" {
-			challengeURL := fmt.Sprintf("/_relintio/challenge?ref=%s", path)
+			challengeURL := fmt.Sprintf("/_relintio/challenge?ref=%s", url.QueryEscape(path))
 			c.Header("X-Relintio-Action", "challenge")
 			c.Header("X-Relintio-Challenge-URL", challengeURL)
 			c.Header("Content-Type", "text/html")

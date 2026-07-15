@@ -3,6 +3,7 @@ package relintio
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 )
 
 func Middleware(agent *Agent) func(http.Handler) http.Handler {
@@ -25,7 +26,7 @@ func Middleware(agent *Agent) func(http.Handler) http.Handler {
 			}
 
 			if res.Action == "challenge" {
-				challengeURL := fmt.Sprintf("/_relintio/challenge?ref=%s", r.URL.Path)
+				challengeURL := fmt.Sprintf("/_relintio/challenge?ref=%s", url.QueryEscape(r.URL.Path))
 				w.Header().Set("X-Relintio-Action", "challenge")
 				w.Header().Set("X-Relintio-Challenge-URL", challengeURL)
 				w.Header().Set("Content-Type", "text/html")

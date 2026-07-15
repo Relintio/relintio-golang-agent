@@ -5,15 +5,15 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/Relintio/relintio-golang-agent"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	// Initialize Relintio Agent
 	agent := relintio.NewAgent(relintio.Config{
 		LicenseKey:   "YOUR_LICENSE_KEY",
-		ApiUrl:       "https://api.relintio.com/api",
+		ApiUrl:       "https://relintio.com/api",
 		SyncInterval: 30 * time.Second,
 	})
 
